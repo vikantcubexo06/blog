@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        form {
+            width: 100%;
+            padding: 12px 14px;
+            margin: 0px 0px 0px 0px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+
+        }
+
+        input[type=text], select, textarea {
+            width: 70%;
+            padding: 12px 20px;
+            margin: 0px 0px 0px 15%;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+
+        }
+
+        h5 {
+            color: white;
+            width: 70%;
+            padding: 12px 20px;
+            margin: 0px 0px 10px 40%;
+        }
+
+        button {
+            width: 20%;
+            padding: 12px 20px;
+            margin: 0px 0px 10px 40%;
+        }
+        h4{
+            color: white;
+            width: 70%;
+            padding: 12px 20px;
+            margin: 0px 0px 10px 40%;
+        }
+
+        {#     textarea {#}
+        {##}
+        {#max-height: 100px;#}
+        {##}
+        {#     }#}
+    </style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Front page</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "blogcss/css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/css/font-awesome.min.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/css/owl.carousel.min.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/css/owl.theme.default.min.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/style.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/responsive.css" %}">
+
+</head>
+<body>
+<div class="wrapper">
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="logo">
+                        <h2><a href="{% url 'home_page' %}">Blog</a> <a href="{% url 'logout_view' %}"
+                                                                        style="float:right;margin-top: -20px;margin-left: -35px">Logout</a>
+                        </h2>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="menu">
+                        <ul>
+                            {#                                <li class="active"><a href="#">Home</a></li>#}
+                            {#                                <li><a href="#">lifestyle</a></li>#}
+                            {#                                <li><a href="#">Food</a></li>#}
+                            {#                                <li><a href="#">Nature</a></li>#}
+                            {#                                <li><a href="#">photography</a></li>#}
+{#                            <li><a href="{% url 'profile_page' %}">profile</a></li>#}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="bg-text-area">
+
+
+        <div class="bg-text">
+                <h2 style="color: white; margin: 0px 0px 0px 380px">{{ data.title }}</h2>
+                <h2 style="color: white;margin: 0px 0px 0px 350px">Posted By:  {{ data.user }}</h2>
+                <p>{{ data.write_blog }}</p>
+
+        </div>
+    </section>
+</div>
+
+</body>
+</html>

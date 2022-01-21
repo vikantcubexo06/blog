@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        form {
+            width: 100%;
+            padding: 12px 14px;
+            margin: 0px 0px 0px 0px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+
+        }
+
+        input[type=text], select, textarea {
+            width: 70%;
+            padding: 12px 20px;
+            margin: 0px 0px 0px 15%;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+
+        }
+
+        h5 {
+            color: white;
+            width: 70%;
+            padding: 12px 20px;
+            margin: 0px 0px 10px 40%;
+        }
+
+        button {
+            width: 20%;
+            padding: 12px 20px;
+            margin: 0px 0px 10px 40%;
+        }
+
+        {#     textarea {#}
+        {##}
+        {#max-height: 100px;#}
+        {##}
+        {#     }#}
+    </style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Front page</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "blogcss/css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/css/font-awesome.min.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/css/owl.carousel.min.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/css/owl.theme.default.min.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/style.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/responsive.css" %}">
+
+</head>
+<body>
+<div class="wrapper">
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="logo">
+                        <h2><a href="{% url 'home_page' %}">Blog</a> <a href="{% url 'logout_view' %}"
+                                                                        style="float:right;margin-top: -20px;margin-left: -35px">Logout</a>
+                        </h2>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="menu">
+                        <ul>
+                            {#                                <li class="active"><a href="#">Home</a></li>#}
+                            {#                                <li><a href="#">lifestyle</a></li>#}
+                            {#                                <li><a href="#">Food</a></li>#}
+                            {#                                <li><a href="#">Nature</a></li>#}
+                            {#                                <li><a href="#">photography</a></li>#}
+                            <li><a href="{% url 'profile_page' %}">profile</a></li>
+                            <li><a href="{% url 'myblog_view' %}">My BLogs</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="bg-text-area">
+
+
+        <div class="bg-text">
+
+                <form method="POST" action="{% url 'blog_view' %}">
+                    {% csrf_token %}
+                    <div class="card">
+                        {#  <img src="..." class="card-img-top" alt="...">#}
+                        <div class="card-body">
+                            <h5 class="card-title">Write Your BLog</h5>
+                            <input type="text" placeholder="Title" name="title">
+                            <textarea placeholder="Write your blog" name="writeblog"></textarea>
+                            {#    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>#}
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            {#    <li class="list-group-item">An item</li>#}
+                            {#    <li class="list-group-item">A second item</li>#}
+                            {#    <li class="list-group-item">A third item</li>#}
+                        </ul>
+                        <div class="card-body">
+                            <button class="card-link">Save blog</button>
+                            {#    <a href="#" class="card-link">Another link</a>#}
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </section>
+</div>
+
+
+</body>
+</html>
