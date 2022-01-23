@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"#}
+{#          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">#}
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "blogcss/css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/css/font-awesome.min.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/css/owl.carousel.min.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/css/owl.theme.default.min.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/style.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/responsive.css" %}">
+    {% block content1 %}
+    {% endblock content1 %}
+
+</head>
+<body>
+{% include 'common.html' %}
+
+<div class="wrapper">
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="logo">
+                        <h2><a href="{% url 'home_page' %}">Blog</a>
+
+                            {% block content2 %}
+
+                            {% endblock content2 %}
+                        </h2>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="menu">
+                        <ul>
+                            {% if user.is_authenticated %}
+                                <li><a href="{% url 'profile_page' %}">profile</a></li>
+                                <li><a href="{% url 'blog_view' %}">blog</a></li>
+                                {% if request.user.is_superuser %}
+                                <li><a href="{% url 'admin_page' %}">admin</a></li>
+                                {% endif %}
+                                <li><a href="{% url 'myblog_view' %}">My BLogs</a></li>
+
+                            {% endif %}
+
+                            {#                            <li class="active"><a href="#">Home</a></li>#}
+                            {#                            <li><a href="#">lifestyle</a></li>#}
+                            {#                            <li><a href="#">Food</a></li>#}
+                            {#                            <li><a href="#">Nature</a></li>#}
+                            {#                            <li><a href="#">photography</a></li>#}
+                            <li>{% if user.is_authenticated %}
+                                <a href="{% url 'logout_view' %}"
+                                   style="">Logout</a>
+                            {% else %}
+                                <a href="{% url 'login_view' %}"
+                                   style="">Login/Register</a>
+                            {% endif %} </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </header>
+
+
+    {% block content %}
+
+    {% endblock %}
+</div>
+</body>
+</html>

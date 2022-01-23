@@ -1,71 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'basePage.html' %}
 {% load static %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Front page</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
-    <link rel="stylesheet" href="{% static "blogcss/css/bootstrap.css" %}">
-    <link rel="stylesheet" href="{% static "blogcss/css/font-awesome.min.css" %}">
-    <link rel="stylesheet" href="{% static "blogcss/css/owl.carousel.min.css" %}">
-    <link rel="stylesheet" href="{% static "blogcss/css/owl.theme.default.min.css" %}">
-    <link rel="stylesheet" href="{% static "blogcss/style.css" %}">
-    <link rel="stylesheet" href="{% static "blogcss/responsive.css" %}">
+    {% block content1 %}
+        <style>
+            .text {
+                width: 100%;
+                line-height: 1.2em;
+                height: 3.6em;
 
-    <style>
-        .text {
-  width: 100%;
-  line-height: 1.2em;
-  height: 3.6em;
-
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-}
-    </style>
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 3;
+            }
+        </style>
+    {% endblock content1 %}
 </head>
 
-<body>
-{% csrf_token %}
-{% include 'common.html' %}
-<div class="wrapper">
-    <header class="header">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="logo">
-                        <h2><a href="#">Blog</a>
-                            {% if user.is_authenticated %}
-                                <a href="{% url 'logout_view' %}" style="float:right;margin-top: -20px;margin-left: -35px">Logout</a>
-                            {% else %}
-                            <a href="{% url 'login_view' %}" style="float:right;margin-top: -20px;margin-left: -35px">Login/Register</a>
-                            {% endif %}
-                        </h2>
-                    </div>
-                </div>
-                <div class="col-md-10">
-                    <div class="menu">
-                        <ul>
-                            {#                                <li class="active"><a href="#">Home</a></li>#}
-                            {#                                <li><a href="#">lifestyle</a></li>#}
-                            {#                                <li><a href="#">Food</a></li>#}
-                            {#                                <li><a href="#">Nature</a></li>#}
-                            {#                                <li><a href="#">photography</a></li>#}
-                            {% if user.is_authenticated %}
-                            <li><a href="{% url 'profile_page' %}">profile</a></li>
-                            <li><a href="{% url 'blog_view' %}">blog</a></li>
-                            <li><a href="{% url 'admin_page' %}">admin</a></li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+{% block content %}
+    {% csrf_token %}
+
+
     <section class="bg-text-area">
         <div class="container">
             <div class="row">
@@ -88,22 +43,15 @@
                                 <img src="{% static "blogcss/img/post-image1.jpg" %}" alt="">
                             </div>
                             <div class="big-text">
-                                {% for i in v %}
-                                    {#                                            <img src="{% static " {{ i.image }}" %}">#}
-                                    {#                                                <p><img src="{{ i.image | safe }}" ></p>#}
-{#                                    <img src="/{{ BASIC_DIR }}/{{ i.image }}" width="120"   >#}
-{#                                    {% if image %}#}
-{#                                    <img src="{{  }}">#}
-                                {% endfor %}
-
+{#                            {% for i in k  %}#}
+{#                            {{ i.user }}#}
+{#                            {% endfor %}#}
                                 {% for i in data %}
                                     <a href="{% url 'show_blog' i.id %}"><h2>{{ i.title }}</h2></a>
                                     <h4><span>Posted By: <span class="author-name">{{ i.user }}</span></span>
-                                     <span class="text">{{ i.write_blog }}</span><hr>
+                                    <span class="text">{{ i.write_blog }}</span>
+                                    <hr>
                                 {% endfor %}
-                                {#                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>#}
-                                {#                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>#}
-                                {#                                        <h4><span class="date">25 February 2017</span><span class="author">Posted By: <span class="author-name">Kabbo Liate</span></span>#}
                                 </h4>
                             </div>
                         </div>
@@ -252,11 +200,9 @@
             </div>
         </div>
     </footer>
-</div>
-<script src="{% static "blogcss/js/jquery-3.1.1.min.js" %}"></script>
-<script src="{% static "blogcss/js/bootstrap.min.js" %}"></script>
-<script src="{% static "blogcss/js/owl.carousel.min.js" %}"></script>
-<script src="{% static "blogcss/js/active.js" %}"></script>
-</body>
-
-</html>
+    </div>
+    <script src="{% static "blogcss/js/jquery-3.1.1.min.js" %}"></script>
+    <script src="{% static "blogcss/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "blogcss/js/owl.carousel.min.js" %}"></script>
+    <script src="{% static "blogcss/js/active.js" %}"></script>
+{% endblock %}

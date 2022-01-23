@@ -9,16 +9,16 @@ from django.views.generic import TemplateView
 from blogapp import views
 
 urlpatterns = [
-                  path('login/', views.loginView, name='login_view'),
-                  path('logout/', views.logoutPage, name='logout_view'),
+                  path('loginView/', views.loginView, name='login_view'),
+                  path('logoutView/', views.logoutPage, name='logout_view'),
                   path('registration/', views.registration, name='registration'),
-                  path('profile/', views.profilePage, name='profile_page'),
+                  path('profilePage/', views.profilePage, name='profile_page'),
                   path('', views.Home, name='home_page'),
                   path('showblog/<int:id>', views.showblog, name='show_blog'),
                   path('adminPage/', views.admin_page, name='admin_page'),
                   path('notapproved/', views.not_approved, name='not_approved'),
-                  path('blog/', views.blogview, name='blog_view'),
-                  path('myblog/', views.MyBLog, name='myblog_view'),
+                  path('blogView/', views.blogview, name='blog_view'),
+                  path('myblogView/', views.MyBLog, name='myblog_view'),
                   path('update/', views.updateView, name='update_view'),
                   path('forget/', views.forgetpassword, name='forget_password'),
                   path('reset/<uidb64>/<token>/',

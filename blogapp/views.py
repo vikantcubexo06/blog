@@ -6,12 +6,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
-
-# Create your views here.
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-
 from blog import settings
 from blogapp.models import Info, Blog
 
@@ -148,24 +145,14 @@ def logoutPage(request):
     return redirect('home_page')
 
 
-def Home(request, username=None):
-    if User.objects.filter(username=username).exists():
-        username1 = request.user
-        if Info.objects.filter(username=User.objects.get(username=username1)).exists():
-            k = Blog.objects.filter(user=Info.objects.get(username=User.objects.get(username=username1)))
-
-            print(k)
-
-            return render(request, 'home.html', context={'k': k})
-    else:
-        if Blog.objects.filter(approval=True):
-            blog = Blog.objects.filter(approval=True)
-            context = {
-                'data': blog
-            }
-            return render(request, 'home.html', context)
-        else:
-            return render(request, 'home.html')
+def Home(request):
+    if Blog.objects.filter(approval=True):
+        print('hiii')
+        blog = Blog.objects.filter(approval=True)
+        context = {
+            'data': blog
+        }
+        return render(request, 'home.html', context)
 
 
 @login_required(login_url='login')
@@ -215,10 +202,12 @@ def showblog(request, id):
 def admin_page(request):
     user = request.user
     data = Blog.objects.all()
+
     context = {
         "data": data
     }
     return render(request, 'adminpage.html', context)
+
 
 def not_approved(request):
     return render(request, 'notapproved.html')

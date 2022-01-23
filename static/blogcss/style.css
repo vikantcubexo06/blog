@@ -64,7 +64,7 @@
 }
 
 .wrapper header.header .menu ul li a {
-    color: rgb(241, 243, 245);
+    color: rgb(6, 30, 55);
     font-family: "Raleway", sans-serif;
     font-size: 15px;
     font-weight: 600;
@@ -520,6 +520,8 @@ section.blog-post-area h4 span.author-name {
     width: 100%;
     bottom: 0;
 }
+
+
 
 .single-blog-area .commententries .author-name h5 a {
     font-family: Geometria;

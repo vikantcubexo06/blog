@@ -1,110 +1,79 @@
+{% extends 'basePage.html' %}
 {% load static %}
 <head>
-    <style>
-        input[type=text], select {
-            width: 50%;
-            padding: 12px 20px;
-            margin: 10px 0px 10px 200px;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+    {% block content1 %}
+        <style>
+            input[type=text], select {
+                width: 50%;
+                padding: 12px 20px;
+                margin: 10px 0px 10px 200px;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
 
-        }
+            }
 
-        input[type=number], select {
-            width: 50%;
-            padding: 12px 20px;
-            margin: 10px 0px 10px 200px;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
+            input[type=number], select {
+                width: 50%;
+                padding: 12px 20px;
+                margin: 10px 0px 10px 200px;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
 
-        input[type=file], select {
-            width: 50%;
-            padding: 12px 20px;
-            margin: 10px 0px 10px 200px;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            background-color: white;
-        }
+            input[type=file], select {
+                width: 50%;
+                padding: 12px 20px;
+                margin: 10px 0px 10px 200px;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                background-color: white;
+            }
 
-        img {
-            width: 50%;
-            padding: 0px 0px;
-            margin: 10px 0px 10px 370px;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+            img {
+                width: 50%;
+                padding: 0px 0px;
+                margin: 10px 0px 10px 370px;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
             {#background-color: white;#}
 
-        }
+            }
 
-        button {
-            width: 50%;
-            padding: 12px 20px;
-            margin: 10px 0px 10px 200px;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            background-color: white;
+            button {
+                width: 50%;
+                padding: 12px 20px;
+                margin: 10px 0px 10px 200px;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                background-color: white;
 
-        }
+            }
 
 
-    </style>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Front page</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
-    <link rel="stylesheet" href="{% static "blogcss/css/bootstrap.css" %}">
-    <link rel="stylesheet" href="{% static "blogcss/css/font-awesome.min.css" %}">
-    <link rel="stylesheet" href="{% static "blogcss/css/owl.carousel.min.css" %}">
-    <link rel="stylesheet" href="{% static "blogcss/css/owl.theme.default.min.css" %}">
-    <link rel="stylesheet" href="{% static "blogcss/style.css" %}">
-    <link rel="stylesheet" href="{% static "blogcss/responsive.css" %}">
+        </style>
+    {% endblock content1 %}
 </head>
-{% include 'common.html' %}
-<div class="wrapper">
-    <header class="header">
+{% block content %}
+{#    <li><a href="#">photography</a></li>#}
+{#    <li><a href="{% url 'blog_view' %}">blog</a></li>#}
+{#    </ul>#}
+
+    <section class="bg-text-area">
         <div class="container">
             <div class="row">
-                <div class="col-md-2">
-                    <div class="logo">
-                        <h2><a href="{% url 'home_page' %}">Blog</a> <a href="{% url 'logout_view' %}"
-                                                                        style="float:right;margin-top: -20px;margin-left: -35px">Logout</a>
-                        </h2>
-                    </div>
-                </div>
-                <div class="col-md-10">
-                    <div class="menu">
-                        <ul>
-                            {#                                <li class="active"><a href="#">Home</a></li>#}
-                            {#                                <li><a href="#">lifestyle</a></li>#}
-                            {#                                <li><a href="#">Food</a></li>#}
-                            {#                                <li><a href="#">Nature</a></li>#}
-                            {#                                <li><a href="#">photography</a></li>#}
-                            <li><a href="{% url 'blog_view' %}">blog</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-    <section class="bg-text-area">
-
-
-        <div class="bg-text">
-            {% if data %}
-
+                <div class="col-md-12">
+                    <div class="bg-text">
+                       {% if data %}
                 <form method="POST" action="{% url 'update_view' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div>
@@ -116,7 +85,6 @@
                         <input type="text" name="gender" value="{{ data.gender }}">
                         <input type="number" name="age" value="{{ data.age }}"><br>
                         <input type="text" name="bio" value="{{ data.bio }}">
-
                         <button type="submit">Update Details</button>
                     </div>
                 </form>
@@ -135,8 +103,12 @@
                         <input type="file" name="pic" placeholder="image"><br>
                         <button type="submit">DONE</button>
                     </div>
+                    {% endif %}
                 </form>
-            {% endif %}
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </div>
+{% endblock %}
