@@ -47,7 +47,6 @@ def loginView(request):
         user1 = authenticate(request, username=username, password=password)
         if user1 is not None:
             login(request, user1)
-            messages.success(request, 'welcome user ')
 
             request.session['username'] = username
             # username1= request.session['username']
@@ -56,6 +55,7 @@ def loginView(request):
             return redirect(Home)
             # return render(request, 'home.html',context={'k':k})
         else:
+            messages.error(request, 'invalid details')
             return render(request, "login.html", context={'msg': "Invalid Details"})
     else:
         return render(request, "login.html")
@@ -92,11 +92,9 @@ def forgetpassword(request):
 
 @login_required(login_url='login')
 def blogview(request):
-    print(request.POST)
-    username = request.session['username']
+    username = request.user
 
     if request.method == "POST":
-        print(username)
 
         title = request.POST['title']
         write_blog = request.POST['writeblog']
@@ -106,10 +104,10 @@ def blogview(request):
                                       write_blog=write_blog)
             obj.save()
             k = Blog.objects.filter(user=Info.objects.get(username=User.objects.get(username=username)))
-            print(k)
-            return render(request, 'myblog.html', context={'k': k})
+
+            return render(request, 'myblog.html', context={'data': k})
         else:
-            messages.error(request, 'User not exists')
+            messages.error(request, 'User not exists. Please fill form first!!!')
             return render(request, 'profile_page.html')
     else:
 
@@ -118,9 +116,9 @@ def blogview(request):
 
 @login_required(login_url='login')
 def profilePage(request):
-    username = request.session['username']
+    username = request.user
     if request.method == 'POST':
-        user_name = request.POST['username']
+        user_name = request.user
         first_name = request.POST['firstname']
         last_name = request.POST['lastname']
         gender = request.POST['gender']
@@ -152,7 +150,7 @@ def logoutPage(request):
 
 def Home(request, username=None):
     if User.objects.filter(username=username).exists():
-        username1 = request.session['username']
+        username1 = request.user
         if Info.objects.filter(username=User.objects.get(username=username1)).exists():
             k = Blog.objects.filter(user=Info.objects.get(username=User.objects.get(username=username1)))
 
@@ -160,18 +158,21 @@ def Home(request, username=None):
 
             return render(request, 'home.html', context={'k': k})
     else:
-        blog = Blog.objects.all()
-        context = {
-            'data': blog
-        }
-        return render(request, 'home.html', context)
+        if Blog.objects.filter(approval=True):
+            blog = Blog.objects.filter(approval=True)
+            context = {
+                'data': blog
+            }
+            return render(request, 'home.html', context)
+        else:
+            return render(request, 'home.html')
 
 
 @login_required(login_url='login')
 def updateView(request):
     if request.method == 'POST':
 
-        username = request.session['username']
+        username = request.user
 
         obj = Info.objects.get(username=User.objects.get(username=username))
         obj.firstname = request.POST['firstname']
@@ -190,16 +191,34 @@ def updateView(request):
 
 
 def MyBLog(request):
-    username = request.session['username']
-    k = Blog.objects.filter(user=Info.objects.get(username=User.objects.get(username=username)))
+    try:
+        username = request.user
+        k = Blog.objects.filter(user=Info.objects.get(username=User.objects.get(username=username)))
 
-    return render(request, 'myblog.html', context={"data": k})
+        return render(request, 'myblog.html', context={"data": k})
+    except:
+        return render(request, 'myblog.html')
 
 
-def showblog(request,id):
-    blog = Blog.objects.get(id=id)
+def showblog(request, id):
+    try:
+        blog = Blog.objects.get(id=id)
 
+        context = {
+            "data": blog
+        }
+        return render(request, 'showblog.html', context)
+    except:
+        return render(request, 'showblog.html')
+
+
+def admin_page(request):
+    user = request.user
+    data = Blog.objects.all()
     context = {
-        "data": blog
+        "data": data
     }
-    return render(request, 'showblog.html', context)
+    return render(request, 'adminpage.html', context)
+
+def not_approved(request):
+    return render(request, 'notapproved.html')

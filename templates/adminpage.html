@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Front page</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "blogcss/css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/css/font-awesome.min.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/css/owl.carousel.min.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/css/owl.theme.default.min.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/style.css" %}">
+    <link rel="stylesheet" href="{% static "blogcss/responsive.css" %}">
+{##}
+</head>
+
+<body>
+{% csrf_token %}
+{% include 'common.html' %}
+<div class="wrapper">
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="logo">
+                        <h2><a href="#">Blog</a>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'logout_view' %}" style="float:right;margin-top: -20px;margin-left: -35px">Logout</a>
+                            {% else %}
+                            <a href="{% url 'login_view' %}" style="float:right;margin-top: -20px;margin-left: -35px">Login/Register</a>
+
+                            {% endif %}
+                         <a href="{% url 'login_view' %}" style="margin-inline-end: fill ">NOT APPROVED</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{#<div class="card-deck">#}
+{#  <div class="card">#}
+{#    <img class="card-img-top" src="..." alt="Card image cap">#}
+{#    <div class="card-body">#}
+{#      <h5 class="card-title">Card title</h5>#}
+{#      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>#}
+{#    </div>#}
+{#    <div class="card-footer">#}
+{#      <small class="text-muted">Last updated 3 mins ago</small>#}
+{#    </div>#}
+{#  </div>#}
+{#  <div class="card">#}
+{#    <img class="card-img-top" src="..." alt="Card image cap">#}
+{#    <div class="card-body">#}
+{#      <h5 class="card-title">Card title</h5>#}
+{#      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>#}
+{#    </div>#}
+{#    <div class="card-footer">#}
+{#      <small class="text-muted">Last updated 3 mins ago</small>#}
+{#    </div>#}
+{#  </div>#}
+{#  <div class="card">#}
+{#    <img class="card-img-top" src="..." alt="Card image cap">#}
+{#    <div class="card-body">#}
+{#      <h5 class="card-title">Card title</h5>#}
+{#      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>#}
+{#    </div>#}
+{#    <div class="card-footer">#}
+{#      <small class="text-muted">Last updated 3 mins ago</small>#}
+{#    </div>#}
+{#  </div>#}
+{#</div>#}
+
+</div>
+
+</body>
+</html>

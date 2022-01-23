@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'admin_interface',
+    'colorfield',
+
 ]
 
 MIDDLEWARE = [
@@ -130,6 +133,7 @@ EMAIL_HOST_PASSWORD = 'Vikrant@06'
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+# STATIC_ROOT = os.path.join(BASE_DIR,'static')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
 # MEDIA_ROOT =  os.path.join(BASE_DIR, 'image')

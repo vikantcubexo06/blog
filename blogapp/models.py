@@ -22,6 +22,7 @@ class Blog(models.Model):
     user = models.ForeignKey(Info, on_delete=models.CASCADE)
     title = models.CharField(max_length=30)
     write_blog = models.TextField()
+    approval = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.user)

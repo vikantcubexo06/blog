@@ -31,6 +31,7 @@
 
 <body>
 {% csrf_token %}
+{% include 'common.html' %}
 <div class="wrapper">
     <header class="header">
         <div class="container">
@@ -57,6 +58,7 @@
                             {% if user.is_authenticated %}
                             <li><a href="{% url 'profile_page' %}">profile</a></li>
                             <li><a href="{% url 'blog_view' %}">blog</a></li>
+                            <li><a href="{% url 'admin_page' %}">admin</a></li>
                             {% endif %}
                         </ul>
                     </div>
