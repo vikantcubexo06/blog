@@ -3,8 +3,7 @@
 {% load static %}
 <head>
 
-{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"#}
-{#          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">#}
+
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
@@ -30,9 +29,6 @@
                     <div class="logo">
                         <h2><a href="{% url 'home_page' %}">Blog</a>
 
-                            {% block content2 %}
-
-                            {% endblock content2 %}
                         </h2>
                     </div>
                 </div>
@@ -43,9 +39,13 @@
                                 <li><a href="{% url 'profile_page' %}">profile</a></li>
                                 <li><a href="{% url 'blog_view' %}">blog</a></li>
                                 {% if request.user.is_superuser %}
-                                <li><a href="{% url 'admin_page' %}">admin</a></li>
+                                    <li><a href="{% url 'admin_page' %}">admin</a></li>
                                 {% endif %}
                                 <li><a href="{% url 'myblog_view' %}">My BLogs</a></li>
+
+                                {% block content2 %}
+
+                                {% endblock content2 %}
 
                             {% endif %}
 

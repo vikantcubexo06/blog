@@ -149,8 +149,10 @@ def Home(request):
     if Blog.objects.filter(approval=True):
         print('hiii')
         blog = Blog.objects.filter(approval=True)
+
         context = {
-            'data': blog
+            'data': blog,
+
         }
         return render(request, 'home.html', context)
 
