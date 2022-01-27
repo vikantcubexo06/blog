@@ -28,19 +28,7 @@
     {% csrf_token %}
 
 
-    <section class="bg-text-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="bg-text">
 
-                        <h3>BLOG Content</h3>
-                        <p> Write a Blog as you Wish</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     <section class="blog-post-area">
         <div class="container">
             <div class="row">
@@ -53,7 +41,7 @@
                                     <div class="single-post">
                                         {% if i.user.imag %}
 
-                                            <img src='{{ i.user.imag }}' style="max-height: 150px; max-width: 120px;">
+                                            <img src='/{{ i.user.imag }}' style="max-height: 150px; max-width: 120px;">
                                         {% else %}<img src="{% static 'default.png' %} "
                                                        style="max-height: 100px; max-width: 80px;"/><br>
                                         {% endif %}
@@ -73,8 +61,9 @@
                         </div>
                     </div>
                 </div>
-
-{#                <div class="pegination">#}
+                <br>
+                <br>
+                <div class="pegination">
                     <!--
                     <ul>
                         <li><i class="fa fa-angle-left" aria-hidden="true"></i></li>
@@ -85,19 +74,19 @@
                     </ul>
         -->
 
-{#                    <div class="nav-links">#}
-{##}
-{#                        {% if data.has_previous %}#}
-{#                            <a class="page-numbers" href="?page=1">&laquo; first</a>#}
-{#                            <a class="page-numbers" href="?page={{ data.previous_page_number }}">previous</a>#}
-{#                        {% endif %}#}
-{##}
-{#                        <span class="page-numbers current">{{ data.number }}</span>#}
-{##}
-{#                        {% if data.has_next %}#}
-{#                            <a class="page-numbers" href="?page={{ data.next_page_number }}">next</a>#}
-{#                            <a class="page-numbers" href="?page={{ data.paginator.num_pages }}">last &raquo;</a>#}
-{#                        {% endif %}#}
+                    <div class="nav-links">
+
+                        {% if data.has_previous %}
+                            <a class="page-numbers" href="?page=1">&laquo; first</a>
+                            <a class="page-numbers" href="?page={{ data.previous_page_number }}">prev</a>
+                        {% endif %}
+
+                        <span class="page-numbers current">{{ data.number }}</span>
+
+                        {% if data.has_next %}
+                            <a class="page-numbers" href="?page={{ data.next_page_number }}">next</a>
+                            <a class="page-numbers" href="?page={{ data.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
 
 
 
@@ -106,13 +95,11 @@
                         {#                        <a class="page-numbers" href="#">4</a>#}
                         {#                        <a class="page-numbers" href="#">5</a>#}
                         {#                        <a class="page-numbers" href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a>#}
-{#                    </div>#}
-{#                </div>#}
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-    <br>
-    <br>
     <footer class="footer">
         <div class="container">
             <div class="row">
@@ -126,13 +113,12 @@
                                         <li><a href="{% url 'blogs' %}">All Blogs</a></li>
                                         <li><a href="{% url 'about_us' %}">About Us</a></li>
                                         <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
-{#                                        <li><a href="#"></a></li>#}
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="footer-icon">
-                                    <p style><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a><a href="#"><i
+                                    <p><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a><a href="#"><i
                                             class="fa fa-twitter" aria-hidden="true"></i></a><a href="#"><i
                                             class="fa fa-linkedin" aria-hidden="true"></i></a><a href="#"><i
                                             class="fa fa-dribbble" aria-hidden="true"></i></a></p>

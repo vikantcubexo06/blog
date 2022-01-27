@@ -1,0 +1,107 @@
+{% extends 'basePage.html' %}
+{% load static %}
+{% load social_share %}
+<head>
+    {% block content1 %}
+        <style>
+            .text {
+                width: 100%;
+                line-height: 1.2em;
+                height: 3.6em;
+
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 3;
+            }
+
+            #i {
+            {#display: grid;#}{#grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));#}{#grid-gap: 1rem;#} width: 25px;
+                height: 25px;
+            {#align-items: center;#}{#text-indent: -9999px;#}
+            }
+        </style>
+    {% endblock content1 %}
+</head>
+
+{% block content %}
+    {% csrf_token %}
+
+
+    <section class="bg-text-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="bg-text">
+                        <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                            laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                            architecto
+                            beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur
+                            aut
+                            odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi
+                            nesciunt.
+                            Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+                            velit,
+                            sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
+                            voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit
+                            laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit
+                            qui
+                            in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum
+                            fugiat
+                            quo voluptas nulla pariatur?"
+
+                            1914 translation by H. Rackham
+                            "But I must explain to you how all this mistaken idea of denouncing pleasure and praising
+                            pain
+                            was born and I will give you a complete account of the system, and expound the actual
+                            teachings
+                            of the great explorer of the truth, the master-builder of human happiness. No one rejects,
+                            dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not
+                            know
+                            how to pursue pleasure rationally encounter consequences that are extremely painful. Nor
+                            again
+                            is there anyone who loves or pursues or desires to obtain pain of itself, because it is
+                            pain,
+                            but because occasionally circumstances occur in which toil and pain can procure him some
+                            great
+                            pleasure. To take a trivial example, which of us ever undertakes laborious physical
+                            exercise,
+                            except to obtain some advantage from it? But who has any right to find fault with a man who
+                            chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain
+                            that</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+    <br>
+
+    <br>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="footer-bg">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <div class="footer-icon">
+                                    <p style="margin-right: -500px"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a><a href="#"><i
+                                            class="fa fa-twitter" aria-hidden="true"></i></a><a href="#"><i
+                                            class="fa fa-linkedin" aria-hidden="true"></i></a><a href="#"><i
+                                            class="fa fa-dribbble" aria-hidden="true"></i></a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </div>
+    <script src="{% static "blogcss/js/jquery-3.1.1.min.js" %}"></script>
+    <script src="{% static "blogcss/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "blogcss/js/owl.carousel.min.js" %}"></script>
+    <script src="{% static "blogcss/js/active.js" %}"></script>
+{% endblock %}

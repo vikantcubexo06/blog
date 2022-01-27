@@ -92,7 +92,8 @@
                 <form method="POST" action="{% url 'profile_page' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div>
-                        <input type="text" name="username" placeholder="username">
+
+{#                        <input type="text" name="username" value="{{ data.username   }}" readonly placeholder="username">#}
                         <input type="text" name="firstname" placeholder="First name">
                         <input type="text" name="lastname" placeholder="lastname">
                         <input type="text" name="gender" placeholder="gender">

@@ -1,23 +1,96 @@
 {% extends 'basePage.html' %}
+{% load static %}
+{% block content1 %}
+    <style>
+     table {
+                width: 80%;
+                margin-top: 100px ;
+                {#line-height: 1.2em;#}
+                {#height: 3.6em;#}
 
-{% block content2 %}
+                {#overflow: hidden;#}
+                {#display: -webkit-box;#}
+                {#-webkit-box-orient: vertical;#}
+                {#-webkit-line-clamp: 3;#}
+            }
+               #w {
+                width: 100%;
+                line-height: 1.2em;
+                height: 3.6em;
 
-    <li><a href="{% url 'not_approved' %}">Not Approved</a></li>
+                overflow: hidden;
+                display: -webkit-box;
+                {#-webkit-box-orient: vertical;#}
+                -webkit-line-clamp: 3;
+            }
+    </style>
 {% endblock %}
+{#{% block content2 %}#}
+{##}
+{#    <li><a href="{% url 'not_approved' %}">Not Approved</a></li>#}
+{#{% endblock %}#}
 
 {% block content %}
-    <div class="row">
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img src="..." alt="...">
-                <div class="caption">
-                    <h3>Thumbnail label</h3>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default"
-                                                                                       role="button">Button</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
+<center>
+    <table border="1">
+        <thead style="background-color: #7abaff; align-items: center">
+
+                <th> ID </th>
+                <th>USERNAME</th>
+                <th>BLOG TITLE</th>
+                <th>BLOG CONTENT</th>
+                <th>APPROVAL</th>
+                <th>DELETE</th>
+
+        </thead>
+        {% for i in data %}
+        <tbody>
+            <tr>
+                <td>{{ i.id }}</td>
+                <td><a href="{% url 'show_profile' i.user.username_id %}">{{ i.user.username }}</a></td>
+                <td><a href="{% url 'show_blog' i.id %}">{{ i.title }}</a></td>
+                <td id="w">{{ i.write_blog }}</td>
+                <td><a href="{% url 'not_approved' i.id %}">{{ i.approval }}</a></td>
+                <td><a href="{% url 'delete_blog' i.id %}">Delete</a></td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+</center>
+
+
+{##}
+{#<section class="blog-post-area">#}
+{#        <div class="container">#}
+{#            <div class="row">#}
+{#                <div class="blog-post-area-style">#}
+{#                    <div class="col-md-12">#}
+{#                        <div class="single-post-big">#}
+{##}
+{#                            {% for i in data %}#}
+{#                                <div class="col-md-3">#}
+{#                                    <div class="single-post">#}
+{#                                        {% if i.user.imag %}#}
+{##}
+{#                                            <img src='/{{ i.user.imag }}'>#}
+{#                                        {% else %}<img src="{% static 'default.png' %} "#}
+{#                                                       style="max-height: 150px; max-width: 120px;"/><br>#}
+{#                                        {% endif %}#}
+{#                                        <a href="{% url 'show_blog' i.id %}"><h2>{{ i.title }}</h2></a>#}
+{#                                        <h4><span>Posted By: <span class="author-name">{{ i.user }}</span></span><br>#}
+{#                                            <span class="text">{{ i.write_blog }}</span>#}
+{##}
+{#                                            <h4><span>{{ i.Date }}</span></h4>#}
+{#                                            <button>Disapprove</button>#}
+{#                                        </h4>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            {% endfor %}#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#    </section>#}
+
 
 {% endblock content %}

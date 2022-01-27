@@ -1,0 +1,97 @@
+{% extends 'basePage.html' %}
+{% load static %}
+<head>
+    {% block content1 %}
+        <style>
+            input[type=text], input[type=number], input[type=email], textarea, select {
+                width: 50%;
+                padding: 12px 20px;
+                margin: 10px 0px 10px 200px;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+
+            }
+
+            {#input[type=number], select {#}
+            {#    width: 50%;#}
+            {#    padding: 12px 20px;#}
+            {#    margin: 10px 0px 10px 200px;#}
+            {#    display: inline-block;#}
+            {#    border: 1px solid #ccc;#}
+            {#    border-radius: 4px;#}
+            {#    box-sizing: border-box;#}
+
+            #}#}
+
+            {#input[type=file], select {#}
+            {#    width: 50%;#}
+            {#    padding: 12px 20px;#}
+            {#    margin: 10px 0px 10px 200px;#}
+            {#    display: inline-block;#}
+            {#    border: 1px solid #ccc;#}
+            {#    border-radius: 4px;#}
+            {#    box-sizing: border-box;#}
+            {#    background-color: white;#}
+
+            #}#}
+
+            img {
+                width: 50%;
+                padding: 0px 0px;
+                margin: 10px 0px 10px 340px;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            {#background-color: white;#}
+
+            }
+
+            button {
+                width: 50%;
+                padding: 12px 20px;
+                margin: 10px 0px 10px 200px;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                background-color: white;
+
+            }
+
+
+        </style>
+    {% endblock content1 %}
+</head>
+{% block content %}
+    {#    <li><a href="#">photography</a></li>#}
+    {#    <li><a href="{% url 'blog_view' %}">blog</a></li>#}
+    {#    </ul>#}
+
+    <section class="bg-text-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="bg-text">
+
+                        <form method="POST" action="{% url 'contact_us' %}">
+                            {% csrf_token %}
+                            <div>
+
+                                <input type="text" name="name" placeholder="Name">
+                                <input type="email" name="email" placeholder="Email">
+                                <input type="number" name="number" placeholder="Mobile Number">
+                                <textarea name="text" placeholder="Query"> </textarea>
+                                <button type="submit">Send Query</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+{% endblock %}

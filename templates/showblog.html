@@ -52,7 +52,6 @@
 {% block content %}
 
 
-
     <section class="bg-text-area">
         <div class="container">
             <div class="row">
@@ -61,6 +60,36 @@
                         <h2 style="color: white; margin: 0px 0px 0px 300px">{{ data.title }}</h2>
                         <h2 style="color: white;margin: 0px 0px 0px 260px">Posted By: {{ data.user }}</h2>
                         <p>{{ data.write_blog }}</p>
+
+                        <form method="POST" action="{% url 'comment_view' id=data.id %}">
+                            {% csrf_token %}
+                            <textarea name="comment" placeholder="Comment"></textarea><br>
+                            <button>Submit</button>
+                        </form>
+                        <h2 style="color:white;">Comments....</h2>
+                        {% if not comments %}
+                            <p style="color:white; margin-right: 620px; margin-top: -10px"> Comment in above box!!!</p>
+                        {% else %}
+                            {% for i in comments %}
+                                <form method="POST" action="{% url 'comment_reply' id=i.id %}">
+
+
+                                    <textarea style="color:black;">{{ i.comment_text }}</textarea>
+
+                                    {% for v in reply %}
+                                        {% if i.id == v.comment_text.id %}
+                                            <textarea style="color: black">{{ v.reply }}</textarea>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% csrf_token %}
+                                    <p>reply</p>
+                                    <textarea name="reply" placeholder="Reply"></textarea>
+                                    <button>submit</button>
+
+                                </form>
+                            {% endfor %}
+                        {% endif %}
+
                     </div>
                 </div>
             </div>

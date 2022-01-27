@@ -1,4 +1,4 @@
-from datetime import datetime
+import django
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -25,8 +25,31 @@ class Blog(models.Model):
     title = models.CharField(max_length=30)
     write_blog = models.TextField()
     approval = models.BooleanField(default=False)
-    Date = models.DateField(default=datetime.now(), null=False)
+    Date = models.DateField(default=django.utils.timezone.now, null=False)
 
+    # comment = models.ForeignKey(CommentPost, on_delete=models.CASCADE, null=True )
+
+    # comment_reply = models.CharField(max_length=500, blank=True, null=True)
+
+    class Meta:
+        ordering = ['Date']
 
     def __str__(self):
         return str(self.user)
+
+
+class CommentPost(models.Model):
+    comment_text = models.CharField(max_length=500, null=True)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+
+
+class ReplyComment(models.Model):
+    comment_text = models.ForeignKey(CommentPost, on_delete=models.CASCADE, null=True)
+    reply = models.CharField(max_length=400)
+
+
+class Query(models.Model):
+    name = models.CharField(max_length=20)
+    email = models.EmailField()
+    mobile = models.PositiveIntegerField()
+    query = models.CharField(max_length=2000)

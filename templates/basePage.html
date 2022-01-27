@@ -36,6 +36,8 @@
                     <div class="menu">
                         <ul>
                             {% if user.is_authenticated %}
+
+                                <li><a href="{% url 'blogs' %}">blogs</a></li>
                                 <li><a href="{% url 'profile_page' %}">profile</a></li>
                                 <li><a href="{% url 'blog_view' %}">blog</a></li>
                                 {% if request.user.is_superuser %}
@@ -46,6 +48,11 @@
                                 {% block content2 %}
 
                                 {% endblock content2 %}
+                            {% else %}
+
+                                <li><a href="{% url 'blogs' %}">blogs</a></li>
+                                <li><a href="{% url 'about_us' %}">about us</a></li>
+                                <li><a href="{% url 'contact_us' %}">contact us</a></li>
 
                             {% endif %}
 

@@ -1,6 +1,8 @@
+from django.core.paginator import Paginator
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
@@ -10,7 +12,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from blog import settings
-from blogapp.models import Info, Blog
+from blogapp.models import Info, Blog, CommentPost, ReplyComment, Query
 
 
 def registration(request):
@@ -26,7 +28,7 @@ def registration(request):
             messages.error(request, 'already exists')
             return redirect('registration')
         else:
-            print(username)
+
             h = make_password(password)
             obj = User.objects.create(username=username, first_name=firstname,
                                       last_name=lastname, email=email, password=h)
@@ -46,11 +48,9 @@ def loginView(request):
             login(request, user1)
 
             request.session['username'] = username
-            # username1= request.session['username']
-            # k = Blog.objects.filter(user=Info.objects.get(username=User.objects.get(username=username1)))
-            # print(k)
+
             return redirect(Home)
-            # return render(request, 'home.html',context={'k':k})
+
         else:
             messages.error(request, 'invalid details')
             return render(request, "login.html", context={'msg': "Invalid Details"})
@@ -98,7 +98,7 @@ def blogview(request):
 
         if Info.objects.filter(username=User.objects.get(username=username)).exists():
             obj = Blog.objects.create(user=Info.objects.get(username=User.objects.get(username=username)), title=title,
-                                      write_blog=write_blog)
+                                      write_blog=write_blog, )
             obj.save()
             k = Blog.objects.filter(user=Info.objects.get(username=User.objects.get(username=username)))
 
@@ -140,6 +140,7 @@ def profilePage(request):
 
 
 def logoutPage(request):
+    request.session.flush()
     logout(request)
     messages.error(request, 'user logged out successfully')
     return redirect('home_page')
@@ -147,14 +148,19 @@ def logoutPage(request):
 
 def Home(request):
     if Blog.objects.filter(approval=True):
-        print('hiii')
         blog = Blog.objects.filter(approval=True)
 
+        pag = Paginator(blog, 4)
+        page_number = request.GET.get('page')
+        page_obj = pag.get_page(page_number)
+
         context = {
-            'data': blog,
+            'data': page_obj,
 
         }
         return render(request, 'home.html', context)
+    else:
+        return render(request, 'home.html')
 
 
 @login_required(login_url='login')
@@ -189,20 +195,9 @@ def MyBLog(request):
         return render(request, 'myblog.html')
 
 
-def showblog(request, id):
-    try:
-        blog = Blog.objects.get(id=id)
-
-        context = {
-            "data": blog
-        }
-        return render(request, 'showblog.html', context)
-    except:
-        return render(request, 'showblog.html')
-
-
+@staff_member_required
+# @user_passes_test(lambda u: u.is_superuser)
 def admin_page(request):
-    user = request.user
     data = Blog.objects.all()
 
     context = {
@@ -211,5 +206,122 @@ def admin_page(request):
     return render(request, 'adminpage.html', context)
 
 
-def not_approved(request):
-    return render(request, 'notapproved.html')
+def blog_status(request, id):
+    v = Blog.objects.get(id=id)
+
+    if v.approval:
+        v.approval = False
+        v.save()
+
+        return redirect('admin_page')
+    else:
+        v.approval = True
+
+        v.save()
+
+        return redirect('admin_page')
+
+
+def delete_blog(request, id):
+    v = Blog.objects.get(id=id)
+    v.delete()
+    return redirect('admin_page')
+
+
+def show_profile(request, username_id):
+    blog = Info.objects.get(username_id=username_id)
+    context = {
+        "data": blog
+
+    }
+    return render(request, 'profile_page.html', context)
+
+
+def showblog(request, id):
+    blog = Blog.objects.get(id=id)
+    comment = CommentPost.objects.filter(blog_id=blog)
+    reply = ReplyComment.objects.all()
+    # print(
+    #     "\n \n "
+    # )
+    # for i in comment:
+    #     print("\n Comment : " ,i.comment_text)
+    #     for x1 in reply:
+    #         # print("\t Reply : " , )
+    #         if i.id == x1.comment_text.id:
+    #             print("\t Reply : ", x1.reply)
+
+    context = {
+        "data": blog,
+        "comments": comment,
+        'reply': reply,
+    }
+
+    return render(request, 'showblog.html', context)
+
+
+def commentBlog(request, id):
+    print("hi", id)
+    if request.method == 'POST':
+        if request.POST['comment']:
+            obj = CommentPost.objects.create(comment_text=request.POST['comment'], blog_id=id)
+            obj.save()
+            return redirect(showblog, id)
+
+    else:
+        return redirect('home_page')
+
+
+def commentReply(request, id):
+    if request.POST['reply']:
+        print('vi', id)
+        obj = ReplyComment.objects.create(reply=request.POST['reply'], comment_text_id=id)
+
+        obj.save()
+        return redirect(showblog, obj.comment_text.blog.id)
+
+
+def contectUs(request):
+    if request.method == "POST":
+        name = request.POST['name']
+        email = request.POST['email']
+        mobile_number = request.POST['number']
+        query = request.POST['text']
+
+        '''to query raiser'''
+        obj = Query.objects.create(name=name, email=email, mobile=mobile_number, query=query)
+        obj.save()
+        subject= f'Hello {name}'
+        message= 'Your Query is submitted'
+        send_mail(subject, message, settings.EMAIL_HOST_USER, [request.POST['email']], fail_silently=False)
+
+        '''to user to deal with query'''
+
+        subject1= "Query received"
+        message1= f'Query by: {name}\n email address is {email}\n mobile number is {mobile_number}\n Query:\n {query} '
+        email_to = ['lcy06shukla@gmail.com',]
+        send_mail(subject1, message1, settings.EMAIL_HOST_USER, email_to, fail_silently=False)
+
+        messages.success(request, 'Query sent successfully')
+        return render(request, 'contactUs.html')
+    else:
+        return render(request, 'contactUs.html')
+
+def AboutUs(request):
+    return render(request, 'aboutus.html')
+
+def blogs(request):
+    if Blog.objects.filter(approval=True):
+        blog = Blog.objects.filter(approval=True)
+
+        pag = Paginator(blog, 4)
+        page_number = request.GET.get('page')
+        page_obj = pag.get_page(page_number)
+
+        context = {
+            'data': page_obj,
+
+        }
+        return render(request, 'blogs.html', context)
+    else:
+        return render(request, 'blogs.html')
